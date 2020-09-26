@@ -127,7 +127,15 @@ class _DetailState extends State<Detail> {
                 ],
               ),
             )
-          : Center(child: Text('sout oo')),
+          : Center(
+              child: Text(
+              'sout oo',
+              style: TextStyle(
+                color: Colors.grey[200],
+                fontWeight: FontWeight.bold,
+                fontSize: 50,
+              ),
+            )),
     );
   }
 }
