@@ -38,25 +38,30 @@ class _MyAppState extends State<MyApp> {
           child: ListView.builder(
         itemCount: users.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          Detail(login: users[index]["login"])));
-            },
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(users[index]["avatar_url"]),
-            ),
-            title: Text(
-              "${users[index]["login"]}",
-              style: TextStyle(color: Colors.grey[200], fontSize: 18),
-            ),
-            trailing: Icon(
-              Icons.keyboard_arrow_right,
-              color: Colors.grey[200],
-            ),
+          return Column(
+            children: [
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Detail(login: users[index]["login"])));
+                },
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(users[index]["avatar_url"]),
+                ),
+                title: Text(
+                  "${users[index]["login"]}",
+                  style: TextStyle(color: Colors.grey[200], fontSize: 18),
+                ),
+                trailing: Icon(
+                  Icons.keyboard_arrow_right,
+                  color: Colors.grey[200],
+                ),
+              ),
+              Divider(height: 4, color: Colors.grey[200]),
+            ],
           );
         },
       )),
