@@ -20,15 +20,15 @@ class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[850],
-      appBar: AppBar(
-        backgroundColor: Colors.grey[900],
-        title: Text('User Detail'),
-      ),
-      body: BlocBuilder<DetailBloc, DetailState>(builder: (context, state){
-        if (state is DetailInitial){
-          return Center(
-              child: Text(
+        backgroundColor: Colors.grey[850],
+        appBar: AppBar(
+          backgroundColor: Colors.grey[900],
+          title: Text('User Detail'),
+        ),
+        body: BlocBuilder<DetailBloc, DetailState>(builder: (context, state) {
+          if (state is DetailInitial) {
+            return Center(
+                child: Text(
               'sout oo',
               style: TextStyle(
                 color: Colors.grey[200],
@@ -36,9 +36,9 @@ class _DetailState extends State<Detail> {
                 fontSize: 50,
               ),
             ));
-        }
-        if  (state is DetailData){
-          return Padding(
+          }
+          if (state is DetailData) {
+            return Padding(
               padding: EdgeInsets.fromLTRB(20, 25, 20, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,9 +131,8 @@ class _DetailState extends State<Detail> {
                   )
                 ],
               ),
-            )
-        }
-      })
-    );
+            );
+          }
+        }));
   }
 }

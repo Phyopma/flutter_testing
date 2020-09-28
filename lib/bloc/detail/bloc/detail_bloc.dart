@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:counter/services/model/userProvider.dart';
-import 'package:counter/services/userdetail.dart';
+import 'package:counter/services/model/userdetail.dart';
 import 'package:meta/meta.dart';
 
 part 'detail_event.dart';

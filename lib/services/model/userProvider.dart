@@ -1,4 +1,4 @@
-import 'package:counter/services/userdetail.dart';
+import 'package:counter/services/model/userdetail.dart';
 
 import 'usermodel.dart';
 import 'package:http/http.dart';
