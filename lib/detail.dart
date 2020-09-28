@@ -1,5 +1,6 @@
-import 'package:counter/services/gituser.dart';
+import 'package:counter/bloc/detail/bloc/detail_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:link/link.dart';
 
 class Detail extends StatefulWidget {
@@ -10,18 +11,10 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
-  Map userdetail = {};
-  void setUserDetail() async {
-    GitUser user = GitUser(login: widget.login);
-    await user.getUserDetail();
-    setState(() {
-      userdetail = user.user;
-    });
-  }
-
-  void initState() {
-    super.initState();
-    setUserDetail();
+  void didChangeDependencies() {
+    BlocProvider.of<DetailBloc>(context)
+        .add(DetailRequested(login: widget.login));
+    super.didChangeDependencies();
   }
 
   @override
@@ -32,8 +25,20 @@ class _DetailState extends State<Detail> {
         backgroundColor: Colors.grey[900],
         title: Text('User Detail'),
       ),
-      body: userdetail.isNotEmpty
-          ? Padding(
+      body: BlocBuilder<DetailBloc, DetailState>(builder: (context, state){
+        if (state is DetailInitial){
+          return Center(
+              child: Text(
+              'sout oo',
+              style: TextStyle(
+                color: Colors.grey[200],
+                fontWeight: FontWeight.bold,
+                fontSize: 50,
+              ),
+            ));
+        }
+        if  (state is DetailData){
+          return Padding(
               padding: EdgeInsets.fromLTRB(20, 25, 20, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +46,7 @@ class _DetailState extends State<Detail> {
                   Center(
                     child: CircleAvatar(
                       radius: 75.0,
-                      backgroundImage: NetworkImage(userdetail['avatar_url']),
+                      backgroundImage: NetworkImage(state.user.avatar),
                     ),
                   ),
                   SizedBox(
@@ -56,7 +61,7 @@ class _DetailState extends State<Detail> {
                   ),
                   SizedBox(),
                   Text(
-                    '${userdetail['login']}',
+                    '${state.user.login}',
                     style: TextStyle(
                         letterSpacing: 2.1,
                         color: Colors.yellow,
@@ -75,7 +80,7 @@ class _DetailState extends State<Detail> {
                   ),
                   SizedBox(),
                   Text(
-                    '${userdetail['followers']}',
+                    '${state.user.followers}',
                     style: TextStyle(
                         letterSpacing: 2.1,
                         color: Colors.yellow,
@@ -94,7 +99,7 @@ class _DetailState extends State<Detail> {
                   ),
                   SizedBox(),
                   Text(
-                    '${userdetail['following']}',
+                    '${state.user.following}',
                     style: TextStyle(
                         letterSpacing: 2.1,
                         color: Colors.yellow,
@@ -120,22 +125,15 @@ class _DetailState extends State<Detail> {
                               fontWeight: FontWeight.bold,
                               fontSize: 30),
                         ),
-                        url: userdetail['url'],
+                        url: state.user.url,
                       )
                     ],
                   )
                 ],
               ),
             )
-          : Center(
-              child: Text(
-              'sout oo',
-              style: TextStyle(
-                color: Colors.grey[200],
-                fontWeight: FontWeight.bold,
-                fontSize: 50,
-              ),
-            )),
+        }
+      })
     );
   }
 }
